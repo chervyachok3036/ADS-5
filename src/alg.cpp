@@ -4,7 +4,7 @@
 #include "tstack.h"
 
 std::string infx2pstfx(const std::string& inf) {
-  TStack<char, 100> st;        
+  TStack<char, 100> st;
   std::string postf;
   std::string num;
   std::map<char, int> pr;
@@ -15,7 +15,7 @@ std::string infx2pstfx(const std::string& inf) {
 
   for (size_t i = 0; i < inf.size(); i++) {
     char el = inf[i];
-    if (el == ' '){
+    if (el == ' ') {
       continue;
     }
     if (el >= '0' && el <= '9') {
