@@ -8,6 +8,7 @@ class TStack {
  private:
   T arr[size];
   int top;
+
  public:
   TStack() : top(-1) {}
 
