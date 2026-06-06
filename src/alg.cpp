@@ -15,6 +15,9 @@ std::string infx2pstfx(const std::string& inf) {
 
   for (size_t i = 0; i < inf.size(); i++) {
     char el = inf[i];
+    if (el == ' '){
+      continue;
+    }
     if (el >= '0' && el <= '9') {
       num += el;
     } else {
