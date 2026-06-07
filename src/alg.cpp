@@ -53,6 +53,8 @@ std::string infx2pstfx(const std::string& inf) {
     postf += ' ';
     st.pop();
   }
+  if (!postf.empty() && postf.back() == ' ') {
+  postf.pop_back();
   return postf;
 }
 
