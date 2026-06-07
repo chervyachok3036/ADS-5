@@ -1,6 +1,7 @@
 // Copyright 2025 NNTU-CS
-#include <string>
 #include <map>
+#include <string>
+
 #include "tstack.h"
 
 std::string infx2pstfx(const std::string& inf) {
@@ -12,12 +13,10 @@ std::string infx2pstfx(const std::string& inf) {
   pr['-'] = 1;
   pr['*'] = 2;
   pr['/'] = 2;
-
-  for (size_t i = 0; i < inf.size(); i++) {
+  for (size_t i = 0; i < inf.size(); ++i) {
     char el = inf[i];
-    if (el == ' ') {
+    if (el == ' ')
       continue;
-    }
     if (el >= '0' && el <= '9') {
       num += el;
     } else {
@@ -36,7 +35,7 @@ std::string infx2pstfx(const std::string& inf) {
         st.pop();
       } else if (pr.count(el)) {
         while (!st.isEmpty() && pr.count(st.get()) &&
-          pr[st.get()] >= pr[el]) {
+               pr[st.get()] >= pr[el]) {
           postf += st.get();
           postf += ' ';
           st.pop();
@@ -45,26 +44,23 @@ std::string infx2pstfx(const std::string& inf) {
       }
     }
   }
-  if (!num.empty()) {
+  if (!num.empty())
     postf += num + ' ';
-  }
   while (!st.isEmpty()) {
     postf += st.get();
     postf += ' ';
     st.pop();
   }
-  if (!postf.empty() && postf.back() == ' ') {
-  postf.pop_back();
-  }
+  if (!postf.empty() && postf.back() == ' ')
+    postf.pop_back();
   return postf;
 }
 
-int eval(const std::string& pref) {
+int eval(const std::string& post) {
   TStack<int, 100> st;
   std::string num;
-
-  for (size_t i = 0; i < pref.size(); ++i) {
-    char el = pref[i];
+  for (size_t i = 0; i < post.size(); ++i) {
+    char el = post[i];
     if (el >= '0' && el <= '9') {
       num += el;
     } else if (el == ' ') {
@@ -72,20 +68,14 @@ int eval(const std::string& pref) {
         st.push(std::stoi(num));
         num.clear();
       }
-    } else if (el == '+' || el == '-'
-      || el == '*' || el == '/') {
+    } else if (el == '+' || el == '-' || el == '*' || el == '/') {
       int b = st.get(); st.pop();
       int a = st.get(); st.pop();
       int res = 0;
-      if (el == '+') {
-        res = a + b;
-      } else if (el == '-') {
-        res = a - b;
-      } else if (el == '*') {
-        res = a * b;
-      } else if (el == '/') {
-        res = a / b;
-      }
+      if (el == '+')      res = a + b;
+      else if (el == '-') res = a - b;
+      else if (el == '*') res = a * b;
+      else if (el == '/') res = a / b;
       st.push(res);
     }
   }
